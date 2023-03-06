@@ -20,11 +20,11 @@ def simple_page(title, icon, df, description):
         st.info(f"**Total Registros: {len(df):,}**", icon="📝")
 
     # Content
-    tabTabla, tabInformacion, tabData = st.tabs(["Tabla", "Información Columnas", "Data Report"])
+    tabTabla, tabInformacion, tabData, tabDataVisualizations = st.tabs(["🚀 Tabla", "👀 Información Columnas", "📈 Data Report", "📊 Data Visualizations"])
 
     # Print table with the dfHorses dataframe
     with tabTabla:
-        AgGrid(df)
+        st.dataframe(df)
 
     # Print table with information about the columns of the dfHorses dataframe
     with tabInformacion:

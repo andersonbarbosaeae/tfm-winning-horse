@@ -2,10 +2,10 @@ import streamlit as st
 from utils import contentPage as cp
 from utils import data as data
 
-df = data.get_data("owners")
+df = data.get_data("races")
 cp.simple_page(
-    "Propietarios",
-    "🕴🏼",
+    "Carreras",
+    "🏁",
     df,
     "ABC"
 )
