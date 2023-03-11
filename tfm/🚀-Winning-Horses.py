@@ -2,19 +2,19 @@ import streamlit as st
 import pandas as pd
 
 # Config
-st.set_page_config(page_title='Winning Horses', page_icon=':bar_chart:', layout='wide')
+st.set_page_config(page_title="Winning Horses", page_icon=":bar_chart:", layout="wide")
 
 # Title
-st.title('🏇 Winning Horses')
+st.title("🚀 Winning Horses")
 
 # Content
-st.subheader('🔥 Motivación')
+st.subheader("🔥 Motivación")
 st.write(
     """
     Consideramos el mundo de la hípica y las carreras de caballos como un sector atractivo y creemos que permite una aplicación amplia e interesante del big data y la analítica de datos.
     """
 )
-st.subheader('🔎 Objetivo')
+st.subheader("🔎 Objetivo")
 st.write(
     """
     Dentro de este ámbito, nuestra meta principal era crear un sistema que permitiese prever los resultados de las carreras de caballos antes de su celebración con cierto éxito. Finalmente, para este trabajo, lo hemos enfocado en definir las probabilidades de ganar de cada caballo, así como de su clasificación entre los 3 o 5 primeros.

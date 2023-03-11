@@ -1,13 +1,14 @@
-# TFM - Winning Horses
+docker compose build
 
-## Introduction
+docker compose up -d
 
-## Installation
-```
-pip install -r requirements.txt
-```
+local
 
-## Usage
-```
-streamlit run Inicio.py
-```
+docker compose down -v
+
+docker ps
+docker exec -it <container_id> bash
+
+docker exec -it da4279e5372e bash
+
+docker logs da4279e5372e --follow
