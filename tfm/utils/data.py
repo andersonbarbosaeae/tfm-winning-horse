@@ -1,7 +1,15 @@
 # Libraries
 import streamlit as st
 import pandas as pd
+
 import joblib
+from sklearn import preprocessing
+from sklearn.metrics import confusion_matrix
+from sklearn import svm
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB  # Solo para numéricas
+from sklearn.metrics import classification_report
+from sklearn.multiclass import OneVsRestClassifier
 
 # Config
 pathResults = "tfm/data/results/"
@@ -79,7 +87,7 @@ def getPredictions(form):
     del form["Schedule"]
     del form["TOP"]
 
-    Gnb = joblib.load("../models/Gnb.pkl")
+    Gnb = joblib.load("tfm/models/Gnb.pkl")
 
     return form
 
