@@ -88,9 +88,6 @@ with st.form("template_form"):
     # Schedule
     with col18:
         dataFormResults["Schedule"] = st.selectbox("Schedule", dfForm["Schedule"])
-    # TOP
-    with col19:
-        dataFormResults["TOP"] = st.selectbox("TOP", dfForm["TOP"])
 
     # Submit button
     submit_button = st.form_submit_button(label="🔎 Predecir")
@@ -98,7 +95,7 @@ with st.form("template_form"):
 # Content
 if submit_button:
     result = data.getPredictions(dataFormResults)
-    st.write(len(result))
+    st.write(len(result.columns))
     st.write(result)
 
     st.balloons()

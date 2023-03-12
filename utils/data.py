@@ -12,8 +12,10 @@ from sklearn.metrics import classification_report
 from sklearn.multiclass import OneVsRestClassifier
 
 # Config
-pathResults = "tfm/data/results/"
-pathVisualizations = "tfm/data/visualizations/"
+pathResults = "data/results/"
+pathVisualizations = "data/visualizations/"
+pathPredictions = "data/predictions/"
+pathModels = "models/"
 
 
 # Data Sources
@@ -40,6 +42,29 @@ def get_data(query):
     return None
 
 
+variablesNumericas = [
+    "Distance",
+    "MajorEvent",
+    "GroundCondition",
+    "Stick",
+    "StartingStall",
+    "Weight",
+    "EdadYears",
+    "FAVORITE",
+    "RaceCriteria_JUMP",
+]
+variablesCategoricas = [
+    "HorseName",
+    "Region",
+    "Category",
+    "JockeyName",
+    "ChampionshipType",
+    "OwnerName",
+    "TrackHandedness",
+    "Seasons",
+    "Schedule",
+]
+
 def getFormPredictions():
     df = get_data("data-predictions")
     result = {
@@ -57,17 +82,42 @@ def getFormPredictions():
         "OwnerName": df.OwnerName.unique(),
         "EdadYears": df.EdadYears.unique(),
         "FAVORITE": df.FAVORITE.unique(),
-        "TrackHandedness": ["Left-Handed", "Right-Handed"],
         "RaceCriteria_JUMP": df.RaceCriteria_JUMP.unique(),
-        "Seasons": ["Spring", "Summer", "Winter"],
-        "Schedule": ["Midday", "Night"],
-        "TOP": ["TOP1", "TOP3", "TOP5"],
+        "TrackHandedness": getValuesFormByColumns(df.columns, "TrackHandedness"),
+        "Seasons": getValuesFormByColumns(df.columns, "Seasons"),
+        "Schedule": getValuesFormByColumns(df.columns, "Schedule"),
     }
     return result
 
 
+def getValuesFormByColumns(columns, nameColumn):
+    columnsValues = filter(lambda column: column.startswith(nameColumn), columns)
+    return [column.replace(nameColumn + "_", "") for column in columnsValues]
+
 def getPredictions(form):
+
+    X = pd.read_csv(pathPredictions + "columns_X.csv")
+
+    for numerica in variablesNumericas:
+        X._set_value(0, numerica, form[numerica])
+
+    for categorica in variablesCategoricas:
+        X._set_value(0, f"{categorica}_{form[categorica]}", 1)
+
+    Gnb = joblib.load(f"{pathModels}/Gnb.pkl")
+    result = Gnb.predict(X)
+
+    return result
+
+    # return X, X2
+
+
+
+    # X._set_value(0, "TrackHandedness_Left-Handed", 1)
+
+
     # Reorganizamos la información
+    """
     form["TrackHandedness_Left-Handed"] = (
         1 if form["TrackHandedness"] == "Left-Handed" else 0
     )
@@ -79,17 +129,27 @@ def getPredictions(form):
     form["Seasons_Winter"] = 1 if form["Seasons"] == "Winter" else 0
     form["Schedule_Midday"] = 1 if form["Schedule"] == "Midday" else 0
     form["Schedule_Night"] = 1 if form["Schedule"] == "Night" else 0
-    form["TOP1"] = 1 if form["TOP"] == "TOP1" else 0
-    form["TOP3"] = 1 if form["TOP"] == "TOP3" else 0
-    form["TOP5"] = 1 if form["TOP"] == "TOP5" else 0
+    # form["TOP1"] = 1 if form["TOP"] == "TOP1" else 0
+    # form["TOP3"] = 1 if form["TOP"] == "TOP3" else 0
+    # form["TOP5"] = 1 if form["TOP"] == "TOP5" else 0
     del form["TrackHandedness"]
     del form["Seasons"]
     del form["Schedule"]
-    del form["TOP"]
-
-    Gnb = joblib.load("tfm/models/Gnb.pkl")
+    """
 
     return form
+
+
+    # X[0]["Seasons_Spring"] = 1
+    return X
+
+
+
+    # dataPredict = pd.DataFrame([form]);
+    # result = Gnb.predict(dataPredict)
+
+
+    return X.columns
 
     # result = {
     #     "Region": df.Region.unique(),

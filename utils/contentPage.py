@@ -4,7 +4,7 @@ import streamlit as st
 from ydata_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
 
-def simple_page(title, icon, df, description):
+def simple_page(title, icon, df, description, dataVisualization=None):
     # Config
     st.set_page_config(page_title=title, page_icon=icon, layout='wide')
 
@@ -39,3 +39,9 @@ def simple_page(title, icon, df, description):
         reportShow = st.checkbox('Ver reporte de datos, esta información puede tardar en cargar')
         if reportShow:
             st_profile_report(pr)
+
+    with tabDataVisualizations:
+        if dataVisualization:
+            dataVisualization()
+        else:
+            st.warning('No hay ninguna visualización de datos disponible para esta página')
