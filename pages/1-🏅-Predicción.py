@@ -95,15 +95,18 @@ with st.form("template_form"):
 # Content
 if submit_button:
     result = data.getPredictions(dataFormResults)
-    st.write(len(result.columns))
-    st.write(result)
+    # st.write(len(result.columns))
+    # st.write(result)
 
     st.balloons()
     st.subheader("🏆 Resultado")
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.warning("**Primer Lugar: 23%**", icon="🥇")
+        icon = "🏁" if result[0][2] == 1 else "❌"
+        st.warning(f"**Primer Lugar:&nbsp;&nbsp;&nbsp; {icon}**", icon="🥇")
     with c2:
-        st.success("**Primeros 3: 32%**", icon="🥉")
+        icon = "🏁" if result[0][1] == 1 else "❌"
+        st.success(f"**Primeros 3:&nbsp;&nbsp;&nbsp; {icon}**", icon="🥉")
     with c3:
-        st.info("**Primeros 5: 40%**", icon="🏅")
+        icon = "🏁" if result[0][0] == 1 else "❌"
+        st.info(f"**Primeros 5:&nbsp;&nbsp;&nbsp; {icon}**", icon="🏅")

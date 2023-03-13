@@ -104,53 +104,14 @@ def getPredictions(form):
     for categorica in variablesCategoricas:
         X._set_value(0, f"{categorica}_{form[categorica]}", 1)
 
+    # X.to_csv("data/predictions/columns_X_results.csv", encoding='utf-8', index=False)
 
-    Gnb = joblib.load(f"{pathModels}/Gnb.pkl")
-    result = Gnb.predict(X)
+    ovr_clf = joblib.load(f"{pathModels}/ovr_clf.pkl")
+    result = ovr_clf.predict(X)
 
     return result
 
-    # return X, X2
 
-
-
-    # X._set_value(0, "TrackHandedness_Left-Handed", 1)
-
-
-    # Reorganizamos la información
-    """
-    form["TrackHandedness_Left-Handed"] = (
-        1 if form["TrackHandedness"] == "Left-Handed" else 0
-    )
-    form["TrackHandedness_Right-Handed"] = (
-        1 if form["TrackHandedness"] == "Right-Handed" else 0
-    )
-    form["Seasons_Spring"] = 1 if form["Seasons"] == "Spring" else 0
-    form["Seasons_Summer"] = 1 if form["Seasons"] == "Summer" else 0
-    form["Seasons_Winter"] = 1 if form["Seasons"] == "Winter" else 0
-    form["Schedule_Midday"] = 1 if form["Schedule"] == "Midday" else 0
-    form["Schedule_Night"] = 1 if form["Schedule"] == "Night" else 0
-    # form["TOP1"] = 1 if form["TOP"] == "TOP1" else 0
-    # form["TOP3"] = 1 if form["TOP"] == "TOP3" else 0
-    # form["TOP5"] = 1 if form["TOP"] == "TOP5" else 0
-    del form["TrackHandedness"]
-    del form["Seasons"]
-    del form["Schedule"]
-    """
-
-    return form
-
-
-    # X[0]["Seasons_Spring"] = 1
-    return X
-
-
-
-    # dataPredict = pd.DataFrame([form]);
-    # result = Gnb.predict(dataPredict)
-
-
-    return X.columns
 
     # result = {
     #     "Region": df.Region.unique(),

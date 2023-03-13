@@ -7,8 +7,15 @@ local
 docker compose down -v
 
 docker ps
+
 docker exec -it <container_id> bash
 
 docker exec -it da4279e5372e bash
 
 docker logs da4279e5372e --follow
+
+
+### Local
+RUN pip3 install -r requirements.txt
+
+streamlit run 🚀-Winning-Horses.py
