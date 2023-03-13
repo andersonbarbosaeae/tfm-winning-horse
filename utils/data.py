@@ -23,7 +23,7 @@ pathModels = "models/"
 def get_data(query):
     if query == "horses":
         df = pd.read_csv(pathVisualizations + "horses.csv")
-        df.SEX: df.SEX.fillna("UNREGISTERED")
+        df.SEX = df.SEX.fillna("UNREGISTERED")
         return df
     if query == "jockeys":
         return pd.read_csv(pathVisualizations + "jockeys.csv")
@@ -103,6 +103,7 @@ def getPredictions(form):
 
     for categorica in variablesCategoricas:
         X._set_value(0, f"{categorica}_{form[categorica]}", 1)
+
 
     Gnb = joblib.load(f"{pathModels}/Gnb.pkl")
     result = Gnb.predict(X)

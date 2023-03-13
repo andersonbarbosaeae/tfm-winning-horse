@@ -8,21 +8,32 @@ from utils import data as data
 # Data Sources
 df = data.get_data("racecourses")
 
-# Data Visualization
-def dataVisualization():
-    m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
-    folium.Marker(
-        [39.949610, -75.150282], popup="Liberty Bell", tooltip="Liberty Bell"
-    ).add_to(m)
-
-    # call to render Folium map in Streamlit
-    st_data = st_folium(m, width=725)
-
 # Page
-cp.simple_page(
+tabTabla, tabInformacion, tabData, tabDataVisualizations = cp.simple_page(
     "Hipódromos",
     "🏟",
     df,
-    "ABC",
-    dataVisualization
+    "ABC"
 )
+
+# Data Visualization
+with tabDataVisualizations:
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("Mapa de los hipódromos")
+        showMap = st.checkbox('Ver mapa de los hipódromos')
+        if showMap:
+            m = folium.Map(
+                location=[df.LATITUDE.mean(), df.LONGITUDE.mean()],
+                zoom_start=5,
+                tiles="OpenStreetMap",
+            )
+            for index, row in df.iterrows():
+                name = f"{row.NAME}, {row.TYPE}"
+                folium.Marker(
+                    location=[row["LATITUDE"], row["LONGITUDE"]],
+                    popup=name,
+                    tooltip=name,
+                ).add_to(m)
+            st_folium(m, width=700, height=400)
+

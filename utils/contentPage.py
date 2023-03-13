@@ -36,12 +36,8 @@ def simple_page(title, icon, df, description, dataVisualization=None):
 
     # Print report of
     with tabData:
-        reportShow = st.checkbox('Ver reporte de datos, esta información puede tardar en cargar')
+        reportShow = st.checkbox('Ver reporte de datos (esta información puede tardar en cargar)')
         if reportShow:
             st_profile_report(pr)
 
-    with tabDataVisualizations:
-        if dataVisualization:
-            dataVisualization()
-        else:
-            st.warning('No hay ninguna visualización de datos disponible para esta página')
+    return tabTabla, tabInformacion, tabData, tabDataVisualizations
