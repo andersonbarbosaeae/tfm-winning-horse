@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Config
-st.set_page_config(page_title="Winning Horses", page_icon=":bar_chart:", layout="wide")
+st.set_page_config(page_title="Winning Horse", page_icon=":bar_chart:", layout="wide")
 
 # Title
 st.title("🚀 Winning Horses")
