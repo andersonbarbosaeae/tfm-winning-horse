@@ -5,7 +5,7 @@ import pandas as pd
 st.set_page_config(page_title="Winning Horse", page_icon=":bar_chart:", layout="wide")
 
 # Title
-st.title("🚀 Winning Horses")
+st.title("🚀 Winning Horse")
 
 # Content
 st.subheader("🔥 Motivación")
